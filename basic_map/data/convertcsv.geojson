@@ -18589,7 +18589,7 @@
     "type": "Feature",
     "geometry": {
        "type": "Point",
-       "coordinates":  { }
+       "coordinates":  [ -88.054241, 44.497600 ]
     },
     "properties": {
     "uid":812,

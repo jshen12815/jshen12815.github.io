@@ -1,0 +1,34 @@
+#map 
+{ 
+	height: 500px; 
+	left: 50px;
+	top: 80px;
+}
+
+body{
+	background-color: black;
+	color: white;
+	font-family: "Lucida Grande", sans-serif
+
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #000
+}
+
+
+.leaflet-popup-tip {
+  background-color: #000
+}
+
+#push{
+	margin-top: 30px;
+	margin-left: 50px;
+}
+
+#barchart
+{
+	margin-top: 550px;
+	margin-left: 50px;
+	top: 600px;
+}

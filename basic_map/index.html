@@ -1,0 +1,93 @@
+<!--
+* Map of "The Counted"
+* Jessica Shen 
+* jshen1
+* 51-482 Interactive Art and Computational Design 
+* January 28, 2016
+*
+* Map data from The Counted database
+* http://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted
+*
+* learned from Ingrid Burrington @ https://github.com/lifewinning/maps-cmu
+* leaflet:  http://leafletjs.com/
+* 
+*/ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<style type="text/css">
+		body { margin:30; padding: 30;}
+		html, #map { position:absolute; top:0; bottom:0; width:90%;}
+	</style>
+	
+	<title>Maps</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+	<!-- leaflet -->
+	<link rel="stylesheet" href="src/leaflet.css" />
+    <link rel="stylesheet" href="src/map.css" />
+	<script src="src/leaflet-src.js"></script>
+	<script src="src/jq.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
+
+
+</head>
+<body>
+	<div id = "Regmap">
+	<h1 id ="push"> Map Visualizations</h1>
+	<div id="map"></div>
+	<!--  -->
+	<script>
+		// source for our tile layer
+		var stamenUrl = 'http://tile.stamen.com/Toner-Lite/{z}/{x}/{y}.png',
+
+		osmAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+
+		baselayer = L.tileLayer(stamenUrl, {attribution: osmAttrib})
+		
+		var map = new L.Map('map',
+		 {layers: [baselayer], 
+		 	center: new L.LatLng(39.50, -94.35), 
+		 	zoom: 4 });
+
+
+		function popUp(f,l){
+		    var name =  f.properties.name ;
+		    var age = f.properties.age
+		    var race = f.properties.raceethnicity
+		    var gender = f.properties.gender
+		    var date = f.properties.month + " "+f.properties.day
+		    var classification = f.properties.classification
+		    l.bindPopup("<b>" + name + "</b>" + 
+		    	"<br /> "+ date + 
+		    	"<br /> "+ race + " " + gender + 
+		    	" age " + age + 
+		    	"<br /> "+ classification);
+		    };
+
+
+		 $.getJSON("./data/convertcsv.geojson", function(data) {
+	 	    var phone = L.geoJson(data, {onEachFeature: popUp, pointToLayer: function (feature, latlng) {
+		 	return L.circleMarker(latlng, {
+		 			radius: 10,
+		 			fillColor: "#990011",
+		 			color: "#fff",
+		 			weight: 0,
+		 			opacity: 0.0,
+		 			fillOpacity: 0.2
+		 			});
+		 		}
+		 	}
+		 )
+			
+	     phone.addTo(map);
+  		 });
+
+	</script>
+</div>
+
+</body>
+</html>
